@@ -1,0 +1,52 @@
+{
+  "name": "use-click-with-prevention",
+  "version": "0.1.0",
+  "description": "a custom react hook to prevent singleClick while doubleClick is fired",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.m.js",
+  "esmodule": "dist/index.modern.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rimraf dist && microbundle build --no-sourcemap --compress"
+  },
+  "keywords": [
+    "custom react hook",
+    "useClick",
+    "useDoubleClick"
+  ],
+  "author": "sebmaz93",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.13"
+  },
+  "dependencies": {
+    "@types/react": "^17.0.0"
+  },
+  "devDependencies": {
+    "microbundle": "^0.13.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sebmaz93/use-click-with-prevention"
+  },
+  "bugs": {
+    "url": "https://github.com/sebmaz93/use-click-with-prevention/issues"
+  },
+  "homepage": "https://github.com/sebmaz93/use-click-with-prevention#readme",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
+  }
+}

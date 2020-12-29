@@ -1,0 +1,12 @@
+language: node_js
+
+node_js:
+  - "12"
+
+script:
+  - npm run build
+
+deploy:
+  provider: npm
+  email: "titan9389@me.com"
+  api_key: NPM_AUTH_TOKEN
