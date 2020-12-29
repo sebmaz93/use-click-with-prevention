@@ -10,3 +10,6 @@ deploy:
   provider: npm
   email: "titan9389@me.com"
   api_key: NPM_AUTH_TOKEN
+  on:
+    tags: true
+    branch: main
