@@ -19,9 +19,10 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Installation](#installation)
+- [Usage](#usage)
 - [Issues](#issues)
-    - [🐛](#-bugs)
-    - [💡](#-feature-requests)
+    - [🐛 Bugs](#-bugs)
+    - [💡 Feature requests](#-feature-requests)
 - [LICENSE](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -33,11 +34,34 @@ should be installed as one of your project's dependencies:
 
 `npm install use-click-with-prevention`
 
+## Usage
+
+```
+import useClickWithPrevention from 'use-click-with-prevention'
+
+const MyComponent = () => {
+
+  const singleClick = () => {
+    // do something
+  }
+  const doubleClick = () => {
+    // do something else
+  }
+  
+  // useClickWithPreventio 3rd argument optional = delay: number
+  const [onClick,onDoubleClick] = useClickWithPrevention(singleClick,doubleClick [,delay]);
+  
+  return (
+    <div>
+      <button onClick={onClick} onDoubleClick={onDoubleClick}>Click Me!</button>
+    </div>
+  )
+}
+```
+
 ### 🐛 Bugs
 
 Please file an issue for bugs, missing documentation, or unexpected behavior.
-
-[**See Bugs**][bugs]
 
 ## LICENSE
 

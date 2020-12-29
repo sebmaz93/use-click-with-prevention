@@ -1,35 +1,61 @@
-import * as React from "react";
+import { useEffect, useRef } from "react";
+
+const voidFn = () => {};
+
+const requestTimeout = (fn, delay, registerCancel) => {
+  const start = new Date().getTime();
+
+  const timer = () => {
+    const timeDiff = new Date().getTime() - start;
+
+    if (timeDiff >= delay) {
+      fn();
+      registerCancel(voidFn);
+      return;
+    }
+
+    const reqAnimFrame = requestAnimationFrame(timer);
+    registerCancel(() => cancelAnimationFrame(reqAnimFrame));
+  };
+
+  const reqAnimFrame = requestAnimationFrame(timer);
+  registerCancel(() => cancelAnimationFrame(reqAnimFrame));
+};
+
+const useCancelableScheduledWork = () => {
+  const cancelCallback = useRef(voidFn);
+  const registerCancel = (fn) => (cancelCallback.current = fn);
+  const cancelScheduledWork = () => cancelCallback.current();
+
+  useEffect(() => {
+    return cancelScheduledWork;
+  }, []);
+
+  return [registerCancel, cancelScheduledWork];
+};
 
 type onClick = (...args) => unknown;
 type onDoubleClick = (...args) => unknown;
-type options = { delay: number };
+type delay = number;
 
 const useClickWithPrevention = (
-  _onClick: onClick,
-  _onDoubleClick: onDoubleClick,
-  { delay = 300 }: options
+  onClick: onClick,
+  onDoubleClick: onDoubleClick,
+  delay: delay = 300
 ) => {
-  const [_timer, setTimer] = React.useState<null | NodeJS.Timeout>(null);
-  const [_delay] = React.useState<number>(delay);
-  const [_prevent, setPrevent] = React.useState<boolean>(false);
+  const [registerCancel, cancelScheduledRaf] = useCancelableScheduledWork();
 
-  const onClick = () => {
-    const timerID = setTimeout(() => {
-      if (!_prevent) {
-        _onClick();
-      }
-      setPrevent(false);
-    }, _delay);
-    setTimer(timerID);
+  const handleClick = () => {
+    cancelScheduledRaf({});
+    requestTimeout(onClick, delay, registerCancel);
   };
 
-  const onDoubleClick = () => {
-    clearTimeout(_timer);
-    setPrevent(true);
-    _onDoubleClick();
+  const handleDoubleClick = () => {
+    cancelScheduledRaf({});
+    onDoubleClick();
   };
 
-  return [onClick, onDoubleClick];
+  return [handleClick, handleDoubleClick];
 };
 
 export default useClickWithPrevention;
