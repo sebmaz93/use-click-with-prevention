@@ -1,6 +1,6 @@
 {
   "name": "use-click-with-prevention",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "a custom react hook to prevent singleClick while doubleClick is fired",
   "source": "src/index.ts",
   "main": "dist/index.js",

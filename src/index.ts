@@ -45,14 +45,14 @@ const useClickWithPrevention = (
 ) => {
   const [registerCancel, cancelScheduledRaf] = useCancelableScheduledWork();
 
-  const handleClick = () => {
+  const handleClick = (...args) => {
     cancelScheduledRaf({});
-    requestTimeout(onClick, delay, registerCancel);
+    requestTimeout(() => onClick(...args), delay, registerCancel);
   };
 
-  const handleDoubleClick = () => {
+  const handleDoubleClick = (...args) => {
     cancelScheduledRaf({});
-    onDoubleClick();
+    onDoubleClick(...args);
   };
 
   return [handleClick, handleDoubleClick];
